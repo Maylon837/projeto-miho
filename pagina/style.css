@@ -9,12 +9,20 @@
 }
 
 body {
-    background-color: #f0f2f5; /* Cinza muito claro para o fundo */
-    color: #333;
-    padding: 20px;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    
+    /* Define que a altura do corpo será exatamente o tamanho da tela */
+    min-height: 100vh; 
+    
+    /* Usa Flexbox para centralizar tudo */
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: column; /* Deixa o header em cima e as seções embaixo */
+    justify-content: center; /* Centraliza verticalmente (no meio da altura) */
+    align-items: center;    /* Centraliza horizontalmente (no meio da largura) */
+    
+    background-color: #f0f2f5; /* Sua cor de fundo atual */
 }
 
 header {
@@ -25,6 +33,7 @@ header {
 header h1 {
     color: #1a3a5a; /* Azul marinho profissional */
     font-size: 2rem;
+    margin-top: 0;
 }
 
 /* Container do Formulário */
@@ -42,7 +51,7 @@ h2 {
     margin-bottom: 15px;
     font-size: 1.2rem;
     color: #2c3e50;
-    border-left: 4px solid #3498db;
+    border-left: 4px solid #219150;
     padding-left: 10px;
 }
 
@@ -56,13 +65,13 @@ input {
 }
 
 input:focus {
-    border-color: #3498db;
+    border-color: #219150;
 }
 
 #btn-salvar {
     width: 100%;
     padding: 12px;
-    background-color: #27ae60; /* Verde para ação positiva */
+    background-color: #3498DB; /* Verde para ação positiva */
     color: white;
     border: none;
     border-radius: 5px;
