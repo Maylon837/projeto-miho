@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Controle de Produtos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Gestão de Inventário</h1>
+    </header>
+
+    <main>
+        <!-- Formulário de Cadastro/Edição -->
+        <section id="form-section">
+            <h2>Cadastrar Novo Produto</h2>
+            <form id="produto-form">
+                <input type="hidden" id="produto-id">
+                <input type="text" id="nome" placeholder="Nome do Produto" required>
+                <input type="number" id="preco" placeholder="Preço (R$)" step="0.01" required>
+                <input type="number" id="quantidade" placeholder="Quantidade em Estoque" required>
+                <button type="submit" id="btn-salvar">Salvar Produto</button>
+            </form>
+        </section>
+
+        <hr>
+
+        <!-- Tabela de Listagem -->
+        <section id="list-section">
+            <h2>Produtos Cadastrados</h2>
+            <table id="produtos-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Preço</th>
+                        <th>Qtd.</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="produtos-lista">
+                    <!-- Os dados da API (JSON) entrarão aqui via JavaScript -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

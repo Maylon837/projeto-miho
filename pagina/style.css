@@ -1,0 +1,121 @@
+/* style.css */
+
+/* Reset básico para garantir que o layout se comporta igual em todos os browsers */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f2f5; /* Cinza muito claro para o fundo */
+    color: #333;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+header h1 {
+    color: #1a3a5a; /* Azul marinho profissional */
+    font-size: 2rem;
+}
+
+/* Container do Formulário */
+#form-section {
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 40px;
+}
+
+h2 {
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    color: #2c3e50;
+    border-left: 4px solid #3498db;
+    padding-left: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #3498db;
+}
+
+#btn-salvar {
+    width: 100%;
+    padding: 12px;
+    background-color: #27ae60; /* Verde para ação positiva */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#btn-salvar:hover {
+    background-color: #219150;
+}
+
+/* Estilo da Tabela */
+#list-section {
+    width: 100%;
+    max-width: 900px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    text-align: left;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background-color: #f8f9fa;
+    color: #555;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+/* Cores para os botões de ação na tabela */
+.btn-editar {
+    color: #3498db;
+    text-decoration: none;
+    margin-right: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-excluir {
+    color: #e74c3c;
+    font-weight: bold;
+    cursor: pointer;
+}
