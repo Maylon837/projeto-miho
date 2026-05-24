@@ -27,22 +27,27 @@
 
         <!-- Tabela de Listagem -->
         <section id="list-section">
-            <h2>Produtos Cadastrados</h2>
-            <table id="produtos-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Preço</th>
-                        <th>Qtd.</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody id="produtos-lista">
-                    <!-- Os dados da API (JSON) entrarão aqui via JavaScript -->
-                </tbody>
-            </table>
-        </section>
+    <div class="section-header" onclick="toggleTabela()">
+        <h2>Produtos Cadastrados</h2>
+        <span id="toggle-icon" class="toggle-icon">▼</span>
+    </div>
+    
+    <div id="tabela-container">
+        <table id="produtos-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Qtd.</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="produtos-lista">
+            </tbody>
+        </table>
+    </div>
+</section>
     </main>
 
     <script src="script.js"></script>

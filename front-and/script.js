@@ -153,3 +153,17 @@ window.excluirProduto = async function(id) {
         }
     }
 };
+
+// Toggle para expandir/recolher a tabela
+function toggleTabela() {
+    const container = document.getElementById('tabela-container');
+    const icon = document.getElementById('toggle-icon');
+    
+    container.classList.toggle('collapsed');
+    
+    if (container.classList.contains('collapsed')) {
+        icon.style.transform = 'rotate(-90deg)';
+    } else {
+        icon.style.transform = 'rotate(0deg)';
+    }
+}
