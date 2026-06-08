@@ -1,44 +1,38 @@
 const API_URL = "http://localhost:8080/api/produtos";
 
+// Elementos do DOM
 const form = document.getElementById('produto-form');
 const tabelaBody = document.getElementById('produtos-lista');
 const btnSalvar = document.getElementById('btn-salvar');
 let produtoEditando = null;
 
-// Mensagem de feedback
-function mostrarMensagem(texto, tipo = "sucesso") {
-    const msg = document.createElement('div');
-    msg.style.position = 'fixed';
-    msg.style.top = '20px';
-    msg.style.right = '20px';
-    msg.style.padding = '15px 20px';
-    msg.style.borderRadius = '8px';
-    msg.style.color = 'white';
-    msg.style.fontWeight = 'bold';
-    msg.style.zIndex = '1000';
-    msg.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
-    
-    if (tipo === "sucesso") {
-        msg.style.backgroundColor = '#219150';
-    } else {
-        msg.style.backgroundColor = '#dc3545';
-    }
-    
-    msg.textContent = texto;
-    document.body.appendChild(msg);
-
-    setTimeout(() => {
-        msg.style.transition = 'opacity 0.5s';
-        msg.style.opacity = '0';
-        setTimeout(() => msg.remove(), 500);
-    }, 3000);
+// ==================== NAVEGAÇÃO ENTRE TELAS ====================
+function mostrarHome() {
+    esconderTodasTelas();
+    document.getElementById('home-screen').classList.add('active');
 }
 
-// Carregar produtos
-document.addEventListener('DOMContentLoaded', () => {
-    carregarProdutos();
-});
+function mostrarCadastro() {
+    esconderTodasTelas();
+    document.getElementById('cadastro-screen').classList.add('active');
+    form.reset();
+    produtoEditando = null;
+    btnSalvar.textContent = "Salvar Produto";
+}
 
+function mostrarLista() {
+    esconderTodasTelas();
+    document.getElementById('lista-screen').classList.add('active');
+    carregarProdutos();
+}
+
+function esconderTodasTelas() {
+    document.querySelectorAll('.screen').forEach(screen => {
+        screen.classList.remove('active');
+    });
+}
+
+// ==================== CADASTRO E EDIÇÃO ====================
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -47,7 +41,7 @@ form.addEventListener('submit', async (e) => {
     const quantidade = parseInt(document.getElementById('quantidade').value);
 
     if (!nome || isNaN(preco) || isNaN(quantidade)) {
-        mostrarMensagem("Preencha todos os campos corretamente!", "erro");
+        alert("Preencha todos os campos corretamente!");
         return;
     }
 
@@ -73,21 +67,21 @@ form.addEventListener('submit', async (e) => {
         }
 
         if (response.ok) {
+            alert(produtoEditando ? "Produto atualizado com sucesso!" : "Produto cadastrado com sucesso!");
             form.reset();
             produtoEditando = null;
             btnSalvar.textContent = "Salvar Produto";
-            mostrarMensagem(produtoEditando ? "Produto atualizado com sucesso!" : "Produto cadastrado com sucesso!");
-            carregarProdutos();
+            mostrarLista(); // Vai direto para a lista após salvar
         }
     } catch (error) {
         console.error("Erro:", error);
-        mostrarMensagem("Erro ao salvar produto. Verifique se o back-end está rodando.", "erro");
+        alert("Erro ao salvar produto. Verifique se o back-end está rodando.");
     } finally {
         btnSalvar.disabled = false;
     }
 });
 
-// Carregar produtos
+// ==================== LISTAGEM ====================
 async function carregarProdutos() {
     try {
         const response = await fetch(API_URL);
@@ -96,7 +90,7 @@ async function carregarProdutos() {
         tabelaBody.innerHTML = '';
 
         if (produtos.length === 0) {
-            tabelaBody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:20px; color:#666;">Nenhum produto cadastrado ainda.</td></tr>`;
+            tabelaBody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:30px; color:#666;">Nenhum produto cadastrado ainda.</td></tr>`;
             return;
         }
 
@@ -115,11 +109,11 @@ async function carregarProdutos() {
             tabelaBody.appendChild(tr);
         });
     } catch (error) {
-        console.error("Erro ao carregar:", error);
+        console.error("Erro ao carregar produtos:", error);
     }
 }
 
-// Editar
+// ==================== EDITAR E EXCLUIR ====================
 window.editarProduto = async function(id) {
     try {
         const response = await fetch(`${API_URL}/${id}`);
@@ -132,38 +126,25 @@ window.editarProduto = async function(id) {
         produtoEditando = produto;
         btnSalvar.textContent = "Atualizar Produto";
 
-        document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
+        mostrarCadastro(); // Abre a tela de cadastro para editar
     } catch (error) {
-        mostrarMensagem("Erro ao carregar produto para edição.", "erro");
+        alert("Erro ao carregar produto para edição");
     }
 };
 
-// Excluir
 window.excluirProduto = async function(id) {
     if (confirm("Deseja realmente excluir este produto?")) {
         try {
             const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-            
             if (response.ok) {
-                mostrarMensagem("Produto excluído com sucesso!");
+                alert("Produto excluído com sucesso!");
                 carregarProdutos();
             }
         } catch (error) {
-            mostrarMensagem("Erro ao excluir produto.", "erro");
+            alert("Erro ao excluir produto");
         }
     }
 };
 
-// Toggle para expandir/recolher a tabela
-function toggleTabela() {
-    const container = document.getElementById('tabela-container');
-    const icon = document.getElementById('toggle-icon');
-    
-    container.classList.toggle('collapsed');
-    
-    if (container.classList.contains('collapsed')) {
-        icon.style.transform = 'rotate(-90deg)';
-    } else {
-        icon.style.transform = 'rotate(0deg)';
-    }
-}
+// Inicia na tela principal
+mostrarHome();
