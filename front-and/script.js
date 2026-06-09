@@ -117,18 +117,29 @@ async function carregarProdutos() {
 window.editarProduto = async function(id) {
     try {
         const response = await fetch(`${API_URL}/${id}`);
+        
+        if (!response.ok) throw new Error("Produto não encontrado");
+
         const produto = await response.json();
 
-        document.getElementById('nome').value = produto.nome;
-        document.getElementById('preco').value = produto.preco;
-        document.getElementById('quantidade').value = produto.quantidade;
+        // Primeiro muda para a tela de cadastro
+        mostrarCadastro();
 
-        produtoEditando = produto;
-        btnSalvar.textContent = "Atualizar Produto";
+        // Depois preenche os campos (com pequeno delay para garantir que o DOM está visível)
+        setTimeout(() => {
+            document.getElementById('nome').value = produto.nome || '';
+            document.getElementById('preco').value = produto.preco || '';
+            document.getElementById('quantidade').value = produto.quantidade || '';
 
-        mostrarCadastro(); // Abre a tela de cadastro para editar
+            produtoEditando = produto;
+            btnSalvar.textContent = "Atualizar Produto";
+        }, 100);
+
+        console.log("✅ Produto carregado para edição:", produto);
+
     } catch (error) {
-        alert("Erro ao carregar produto para edição");
+        console.error("Erro ao editar:", error);
+        alert("Erro ao carregar os dados do produto para edição.");
     }
 };
 
